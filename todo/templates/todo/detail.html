@@ -15,6 +15,11 @@
       {% if task.due_at %}
       <li>Due at: {{ task.due_at }}</li>
       {% endif %}
+      
+      <li>Todo: {{ task.todo }}</li>
+      <li>Doing: {{ task.doing }}</li>
+      <li>Done: {{ task.done }}</li>
+
       {% if task.completed %}
       <li>Status: Completed</li>
       {% else %}
