@@ -15,11 +15,21 @@ def index(request):
         )
         task.save()
         return redirect('index')
-
-    if request.GET.get("order") == "due":
-        tasks = Task.objects.order_by("due_at")
+    
+    filter_status = request.GET.get("status")
+    if filter_status == "todo":
+        tasks = Task.objects.filter(todo__isnull=False, todo__exact="").order_by("todo")
+    elif filter_status == "doing":
+        tasks = Task.objects.filter(doing__isnull=False, doing__exact="").order_by("doing")
+    elif filter_status == "done":
+        tasks = Task.objects.filter(done__isnull=False, done__exact="").order_by("done")
     else:
         tasks = Task.objects.order_by("-posted_at")
+
+    if request.GET.get("order") == "due":
+        tasks = tasks.order_by("due_at")
+    else:
+        tasks = tasks.order_by("-posted_at")
 
     context = {
         "tasks": tasks
