@@ -37,14 +37,10 @@ def update(request, task_id):
     task = get_object_or_404(Task, pk=task_id)
     if request.method == "POST":
         task.title = request.POST['title']
-<<<<<<< HEAD
         task.due_at = make_aware(parse_datetime(request.POST['due_at'])) if request.POST["due_at"] else None
         task.todo = request.POST.get("todo", "")
         task.doing = request.POST.get("doing", "")
         task.done = request.POST.get("done", "")
-=======
-        task.due_at = make_aware(parse_datetime(request.POST['due_at']))
->>>>>>> 7957e5d879af7c85081aaa2344e6b4667dd6c060
         task.save()
         return redirect('detail', task_id=task.id)
 
